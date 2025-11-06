@@ -1,115 +1,75 @@
 import { useState } from 'react';
-import { User, Link, UploadCloud, Hash, Globe, MapPin, Camera } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Camera, Hash, Globe, Link as LinkIcon, Star } from 'lucide-react';
 
 export default function Onboarding() {
   const [form, setForm] = useState({
-    role: 'influencer',
     name: '',
     niche: '',
     followers: '',
-    region: '',
-    website: '',
-    portfolioUrl: '',
-    socials: {
-      instagram: '',
-      tiktok: '',
-      youtube: '',
-    },
+    platform: 'Instagram',
+    portfolio: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSocialChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, socials: { ...prev.socials, [name]: value } }));
-  };
+  const handleChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Submitted onboarding for: ' + form.name + ' (' + form.role + ')');
+    alert('Thanks! Your creator profile has been captured locally for this MVP.');
   };
 
   return (
-    <section id="onboard" className="py-16 bg-gradient-to-b from-white to-slate-50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-10">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Influencer onboarding</h2>
-            <p className="mt-3 text-slate-600">Create your profile, connect socials, and get verified to start matching with brands.</p>
-
-            <ul className="mt-6 space-y-3 text-slate-700">
-              <li className="flex items-start gap-3"><Camera className="text-blue-600 mt-1" size={18}/> Portfolio & media kit upload</li>
-              <li className="flex items-start gap-3"><Hash className="text-blue-600 mt-1" size={18}/> Niche, audience, and engagement details</li>
-              <li className="flex items-start gap-3"><Globe className="text-blue-600 mt-1" size={18}/> Social verification with public links</li>
-            </ul>
+    <section id="onboarding" className="relative mx-auto max-w-5xl px-6 py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5 }}
+        className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+      >
+        <div className="mb-6 flex items-center gap-3">
+          <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-red-50 text-red-600">
+            <Camera className="h-5 w-5" />
           </div>
-
-          <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-slate-200 shadow-sm p-6 space-y-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700">Role</label>
-                <select name="role" value={form.role} onChange={handleChange} className="mt-1 w-full rounded-md border-slate-300 focus:ring-blue-500 focus:border-blue-500">
-                  <option value="influencer">Influencer</option>
-                  <option value="sponsor">Sponsor</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700">Display name</label>
-                <div className="mt-1 relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-                  <input name="name" value={form.name} onChange={handleChange} placeholder="@username or brand" className="w-full rounded-md border-slate-300 pl-9 focus:ring-blue-500 focus:border-blue-500" />
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700">Primary niche</label>
-                <input name="niche" value={form.niche} onChange={handleChange} placeholder="Beauty, Gaming, Fitness..." className="mt-1 w-full rounded-md border-slate-300 focus:ring-blue-500 focus:border-blue-500" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700">Followers</label>
-                <input name="followers" value={form.followers} onChange={handleChange} placeholder="e.g. 120000" className="mt-1 w-full rounded-md border-slate-300 focus:ring-blue-500 focus:border-blue-500" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700">Region</label>
-                <input name="region" value={form.region} onChange={handleChange} placeholder="North America" className="mt-1 w-full rounded-md border-slate-300 focus:ring-blue-500 focus:border-blue-500" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700">Website</label>
-                <div className="mt-1 relative">
-                  <Link className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-                  <input name="website" value={form.website} onChange={handleChange} placeholder="https://" className="w-full rounded-md border-slate-300 pl-9 focus:ring-blue-500 focus:border-blue-500" />
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700">Instagram</label>
-                <input name="instagram" value={form.socials.instagram} onChange={handleSocialChange} placeholder="https://instagram.com/" className="mt-1 w-full rounded-md border-slate-300 focus:ring-blue-500 focus:border-blue-500" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700">TikTok</label>
-                <input name="tiktok" value={form.socials.tiktok} onChange={handleSocialChange} placeholder="https://tiktok.com/@" className="mt-1 w-full rounded-md border-slate-300 focus:ring-blue-500 focus:border-blue-500" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700">YouTube</label>
-                <input name="youtube" value={form.socials.youtube} onChange={handleSocialChange} placeholder="https://youtube.com/" className="mt-1 w-full rounded-md border-slate-300 focus:ring-blue-500 focus:border-blue-500" />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-slate-700">Portfolio URL</label>
-              <input name="portfolioUrl" value={form.portfolioUrl} onChange={handleChange} placeholder="Link to drive, PDF, website" className="mt-1 w-full rounded-md border-slate-300 focus:ring-blue-500 focus:border-blue-500" />
-            </div>
-
-            <button type="submit" className="w-full rounded-lg bg-slate-900 text-white py-2.5 font-semibold hover:bg-slate-800">
-              Save and continue
-            </button>
-          </form>
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">Creator Onboarding</h2>
+            <p className="text-sm text-gray-600">Share your basics so sponsors can discover you.</p>
+          </div>
         </div>
-      </div>
+
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <label className="flex flex-col gap-1">
+            <span className="text-sm text-gray-700">Name</span>
+            <input name="name" value={form.name} onChange={handleChange} required className="rounded-md border border-gray-300 px-3 py-2 outline-none ring-red-200 focus:ring" placeholder="Jane Creator" />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="text-sm text-gray-700 flex items-center gap-1"><Hash className="h-4 w-4" /> Niche</span>
+            <input name="niche" value={form.niche} onChange={handleChange} required className="rounded-md border border-gray-300 px-3 py-2 outline-none ring-red-200 focus:ring" placeholder="Beauty, Tech, Travel..." />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="text-sm text-gray-700 flex items-center gap-1"><Globe className="h-4 w-4" /> Platform</span>
+            <select name="platform" value={form.platform} onChange={handleChange} className="rounded-md border border-gray-300 px-3 py-2 outline-none ring-red-200 focus:ring">
+              <option>Instagram</option>
+              <option>TikTok</option>
+              <option>YouTube</option>
+              <option>Twitch</option>
+            </select>
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className="text-sm text-gray-700 flex items-center gap-1"><Star className="h-4 w-4" /> Followers</span>
+            <input name="followers" value={form.followers} onChange={handleChange} type="number" min="0" className="rounded-md border border-gray-300 px-3 py-2 outline-none ring-red-200 focus:ring" placeholder="5000" />
+          </label>
+          <label className="sm:col-span-2 flex flex-col gap-1">
+            <span className="text-sm text-gray-700 flex items-center gap-1"><LinkIcon className="h-4 w-4" /> Portfolio or Link</span>
+            <input name="portfolio" value={form.portfolio} onChange={handleChange} className="rounded-md border border-gray-300 px-3 py-2 outline-none ring-red-200 focus:ring" placeholder="https://linktr.ee/you" />
+          </label>
+          <div className="sm:col-span-2 mt-2">
+            <button className="inline-flex w-full items-center justify-center rounded-md bg-red-600 px-5 py-2.5 font-medium text-white shadow-sm transition hover:bg-red-500">
+              Create Profile
+            </button>
+          </div>
+        </form>
+      </motion.div>
     </section>
   );
 }

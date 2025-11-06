@@ -1,14 +1,14 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Onboarding from './components/Onboarding';
-import Discover from './components/Discover';
-import Footer from './components/Footer';
+import Navbar from './components/Navbar.jsx';
+import Hero from './components/Hero.jsx';
+import Onboarding from './components/Onboarding.jsx';
+import Discover from './components/Discover.jsx';
+import Footer from './components/Footer.jsx';
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-900">
+    <div className="min-h-screen bg-white text-gray-900">
       <Navbar />
-      <main className="flex-1">
+      <main>
         <Hero />
         <Onboarding />
         <Discover />
@@ -17,5 +17,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
