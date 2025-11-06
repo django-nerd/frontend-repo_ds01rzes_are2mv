@@ -6,7 +6,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 via-cyan-500 to-violet-500" />
-          <span className="font-semibold text-slate-800">HoloMatch</span>
+          <span className="font-semibold text-slate-800">SwayMatch</span>
         </div>
         <nav className="hidden md:flex items-center gap-6 text-sm text-slate-600">
           <a href="#discover" className="hover:text-slate-900 transition-colors flex items-center gap-2">
